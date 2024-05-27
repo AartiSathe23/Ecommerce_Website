@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="styles/getotp.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Shopping</h1>
+        <nav>
+            <a href="index.html" class="contact">Contact Us</a>
+            <button class="request-demo">Explore</button>
+        </nav>
+    </header>
+    <main>
+        <img class="man" src="assets/adult.png" alt="">
+        <img class="cart" src="assets/shopping-cart.png" alt="">
+        <div class="login-box1">
+            <h2>OTP Verification</h2>
+            <p>Enter 4 digit Verification Code Sent to your Phone</p>
+            <form action="../backend/verify_otp.php" method="post" id="otpForm">
+                <div class="otp-input">
+                    <input type="text" id="digit1" class="digit" maxlength="1" inputmode="numeric" required>
+                    <input type="text" id="digit2" class="digit" maxlength="1" inputmode="numeric" required>
+                    <input type="text" id="digit3" class="digit" maxlength="1" inputmode="numeric" required>
+                    <input type="text" id="digit4" class="digit" maxlength="1" inputmode="numeric" required>
+                </div>
+                <p class="msg">By proceeding, you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+                <div class="time">
+                    <p id="otp-expire-msg">OTP expires in:</p>
+                    <div id="timer">60</div>
+                </div>
+                <button type="button" class="sign-up-btn" id="verifyBtn">VERIFY OTP</button>
+                <button type="button" id="resendBtn" class="resend-btn" disabled>RESEND OTP</button>
+            </form>            
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Shopping 2024 | <a href="#">Privacy Policy</a></p>
+    </footer>
+    <div id="snackbar">OTP Verified Successfully!</div>
+    <script src="script/script.js"></script>
+</body>
+</html>

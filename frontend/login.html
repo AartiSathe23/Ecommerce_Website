@@ -10,42 +10,50 @@
 <body>
     <header>
         <h1 class="logo">Shopping</h1>
-        <!-- <nav>
-            <a href="" class="fashion">Fashion</a>
-            <a href="" class="electronics">Electronics</a>
-            <a href="" class="home">Home & Furniture</a>
-            <a href="" class="grocery">Grocery</a>
-            <a href="" class="baby">Baby Care</a>
-            <a href="" class="sports">Sports & Fitness</a>
-            <a href="" class="more">More</a>
-        </nav> -->
         <nav>
             <a href="index.html" class="contact">Contact Us</a>
-            <a href="signup.html" class="sign-up">Sign Up</a>
             <button class="request-demo">Explore</button>
         </nav>
     </header>
-        <main>
-            <div class="login-box">
-                <h2>Login Here</h2>
-                <p>Hey, Enter your details to get sign in to your account</p>
-                <form action="/login" method="post">
-                    <input type="text" id="email" name="email" placeholder="Enter Email / Phone No" required>
-                    <input type="password" id="password" name="password" placeholder="Passcode" required>
-                    <a href="#" class="trouble-sign-in">Having trouble in sign in?</a>
-                    <button type="submit" class="sign-in-btn">Sign in</button>
-                </form>
-                <p class="or">Or Sign in with</p>
-                <div class="social-login">
-                    <button class="social-btn google"><i class='bx bxl-google'></i>Google</button>
-                    <button class="social-btn apple"><i class='bx bxl-apple' ></i>Apple ID</button>
-                    <button class="social-btn facebook"><i class='bx bxl-facebook' ></i>Facebook</button>
-                </div>
-                <p class="no-account">Don't have an account? <a href="signup.html"><u>Request Now</u></a></p>
+    <main>
+        <img class="man" src="assets/adult.png" alt="">
+        <img class="cart" src="assets/shopping-cart.png" alt="">
+        <div class="login-box">
+            <h2>Login Here</h2>
+            <p>Please Provide your Phone Number to Continue</p>
+            <form id="otpForm" action="send_otp.php" method="post">
+                <input type="text" id="phone" name="phone" placeholder="Enter Phone No" required>
+                <p class="msg">By proceeding, you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+                <button id="btn" class="sign-up-btn">GET OTP</button>
+            </form>
+            <p class="or">Or Sign up with</p>
+            <div class="social-login">
+                <button class="social-btn google"><i class='bx bxl-google'></i>Google</button>
+                <button class="social-btn facebook"><i class='bx bxl-facebook'></i>Facebook</button>
             </div>
-        </main>
+            <p class="no-account">Don't have an account? <a href="signup.html"><u>Request Now</u></a></p>
+        </div>
+    </main>
     <footer>
         <p>&copy; Shopping 2024 | <a href="#">Privacy Policy</a></p>
     </footer>
+    <script>
+        document.getElementById("btn").addEventListener("click", function() {
+            var phone = document.getElementById("phone").value;
+            fetch('http://localhost/send_otp.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'phone=' + encodeURIComponent(phone)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('OTP sent:', data.otp); // For testing purposes
+                window.location.href = "getotp.html";
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>
