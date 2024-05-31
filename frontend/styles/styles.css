@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #cedcc3;
     color: #fff;
     padding: 1em;
     text-align: center;
@@ -23,6 +23,7 @@ nav ul li {
 }
 
 nav ul li a {
+    font-family: "Lucida Console", "Courier New", monospace;
     color: #fff;
     text-decoration: none;
 }
