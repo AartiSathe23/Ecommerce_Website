@@ -8,28 +8,70 @@ body {
 header {
     background-color: #cedcc3;
     color: #fff;
-    padding: 1em;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
     text-align: center;
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+/* .logo-container {
+    margin-right: 20px;
+} */
+
+.logo {
+    max-height: 120px; 
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 1em;
+.nav-container {
+    flex: 1;
 }
 
-nav ul li a {
-    font-family: 'Domine';
-    color: #535a3b;
+.nav-container h1 {
+    margin-bottom: 30px;
+}
+
+nav a {
+    margin-left: 15px;
     text-decoration: none;
+    color: #535a3b;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;margin-top: 77px;
+}
+
+.search-bar {
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+}
+
+.search-icon {
+    background-color: #ccc;
+    padding: 5px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+
+.icons i {
+    font-size: 27px;
+    margin-top: 80px;
+    margin-right: 17px;
+    color: #535a3b;
+    cursor: pointer;
 }
 
 main {
-    padding: 1em;
+    padding: 20px;
 }
 
 footer {

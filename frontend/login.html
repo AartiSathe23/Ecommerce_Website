@@ -12,7 +12,7 @@
         <h1 class="logo">Shopping</h1>
         <nav>
             <a href="index.html" class="contact">Contact Us</a>
-            <button class="request-demo">Explore</button>
+            <button class="request-demo" id="exploreBtn">Explore</button>
         </nav>
     </header>
     <main>
@@ -52,6 +52,10 @@
                 window.location.href = "frontend/getotp.html";
             })
             .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById("exploreBtn").addEventListener("click", function() {
+            window.location.href = "index.html";
         });
     </script>
 </body>
