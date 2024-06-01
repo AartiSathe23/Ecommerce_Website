@@ -24,7 +24,6 @@ header {
     max-height: 120px; 
 }
 
-
 .nav-container {
     flex: 1;
 }
@@ -43,43 +42,6 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.mega-menu {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-.menu-column {
-    flex: 1;
-}
-
-.menu-column h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.menu-column a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    padding: 5px 0;
-}
-
-.menu-column a:hover {
-    text-decoration: underline;
-}
-
 
 .search-container {
     display: flex;
@@ -119,9 +81,8 @@ main {
     height: 450px;
     display: flex;
     align-items: center;
-    /* justify-content: space-between;  */
-    padding: 20px;
     margin-top: 145px;
+    /* justify-content: space-between;  */
 }
 
 .banner p {
@@ -139,9 +100,9 @@ main {
 
 .banner img {
     height: 100%;
+    width: 50%;
     max-height: 500px;
     object-fit: cover;
-    margin-left: 220px; /* Adjust space between text and image */
 }
 
 .offers {
@@ -197,6 +158,7 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1em;
-    bottom: 0;
     width: 97.88%;
+    bottom: 0;
 }
+
