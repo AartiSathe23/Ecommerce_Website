@@ -74,6 +74,83 @@ main {
     padding: 20px;
 }
 
+.banner {
+    background-color: #d9dad7;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between;  */
+    padding: 20px;
+}
+
+.banner p {
+    font-family: 'Domine', serif;
+    font-size: 45px; 
+    color: #333; /* Adjust as needed */
+    margin: 0;
+    margin-left: 220px
+}
+
+.banner span{
+    font-size: 70px;
+    color: #e8630a;
+}
+
+.banner img {
+    height: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    margin-left: 220px; /* Adjust space between text and image */
+}
+
+.offers {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 150px;
+    justify-content: space-between;
+}
+
+.offers .b1, .b2, .b3, .b4 {
+    height: 200px;
+    width: 356px;
+    display: flex;
+    align-items: center;
+}
+
+.offers .b1 img, .b2 img, .b3 img, .b4 img{
+    height: 200px;
+}
+
+.offers .b1 p, .b2 p, .b3 p, .b4 p{
+    margin-left: 20px;
+}
+
+.offers .b1 span, .b2 span, .b3 span, .b4 span{
+    font-size: 25px;
+}
+
+.b1 {
+    background-color: #aeaf7a;
+}
+
+.b2 {
+    background-color: #8f8787;
+}
+
+.b2 img{
+    height: 230px;
+    margin-bottom: 30px;
+}
+
+.b3 {
+    background-color: #e79e85;
+}
+
+.b4 {
+    background-color: #dab784;
+}
+
 footer {
     background-color: #333;
     color: #fff;
