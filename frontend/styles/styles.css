@@ -12,8 +12,10 @@ header {
     align-items: center;
     padding: 10px 20px;
     text-align: center;
-    width: 97.88%;
-    position: fixed;
+    width: 97.36%;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure the header is on top */
 }
 
 /* .logo-container {
@@ -121,7 +123,6 @@ main {
     align-items: center;
     /* justify-content: space-between;  */
     padding: 20px;
-    margin-top: 145px;
 }
 
 .banner p {
