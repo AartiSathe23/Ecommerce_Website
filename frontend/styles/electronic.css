@@ -78,33 +78,52 @@ main {
 
 .banner {
     background-color: #d9dad7;
-    height: 430px;
+    height: 440px;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 145px;
-    /* justify-content: space-between;  */
+    /* position: relative; */
+}
+
+
+.circle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; 
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    width: 330px; 
+    height: 330px; 
+    background-color: white;
+    border-radius: 50%;
+    z-index: -1; 
+}
+
+.banner p {
+    font-family: 'Domine', serif;
+    font-size: 45px; 
+    color: #333;
+    margin: 0;
+    padding: 20px; 
+    text-align: center; 
+}
+
+.banner span {
+    font-size: 200px;
+    color: #e8630a;
 }
 
 .banner img {
     height: 100%;
-    width: 50%;
-    max-height: 430px;
+    max-height: 440px;
     object-fit: cover;
-}
-
-.banner-p {
-    font-family: 'Domine', serif;
-    font-size: 45px; 
-    color: #333; 
-    /* position: absolute; */
-    /* top: 50%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px 10px;
-    margin-bottom: 22px;
-    text-align: center;
+    margin-left: 200px;
 }
 
 .offers {
@@ -113,6 +132,7 @@ main {
     align-items: center;
     margin-bottom: 22px;
     justify-content: space-between;
+    margin-top: 22px;
 }
 
 .offers .b1, .b2, .b3{
