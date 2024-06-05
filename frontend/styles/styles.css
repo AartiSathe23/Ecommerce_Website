@@ -196,8 +196,129 @@ main {
 footer {
     background-color: #333;
     color: #fff;
-    text-align: center;
-    padding: 1em;
-    bottom: 0;
-    width: 97.88%;
+    text-align: left;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.footer-content img {
+    max-height: 120px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+}
+
+.footer-section h2 {
+    font-family: 'Domine', serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.footer-section p, .footer-section ul, .footer-section li {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: #e8630a;
+}
+
+.footer-section.newsletter form {
+    /* display: flex; */
+    flex-direction: column;
+}
+
+.footer-section.newsletter input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* border-radius: 5px; */
+    margin-bottom: 10px;
+    width: 60%;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.footer-section.newsletter button {
+    padding: 10px 20px;
+    border: none;
+    /* border-radius: 5px; */
+    background-color: #e8630a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease; 
+}
+
+.footer-section .newsletter button:hover {
+    background-color: #d75703;
+}
+
+.footer-section.newsletter p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.footer-section .social-icons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.footer-section .social-icons a {
+    color: #ccc;
+    font-size: 24px;
+    margin: 0 10px 0 0;
+    text-decoration: none;
+}
+
+.footer-section .social-icons a:hover {
+    color: #e8630a;
+}
+
+.footer-bottom {
+    /* background-color: #222; */
+    padding: 10px 0;
+    margin-bottom: -10px;
+    text-align: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 14px;
+    display: flex;
+}
+
+.footer-bottom img{
+    max-height: 50px;
+}
+
