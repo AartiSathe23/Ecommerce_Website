@@ -19,7 +19,7 @@ header {
     background: none;
 }
 
-header h1 {
+header h2 {
     margin-left: 40px;
 }
 
@@ -52,7 +52,7 @@ nav a:hover {
     cursor: pointer;
 }
 
-.request-demo:hover, .sign-up-btn:hover{
+.request-demo:hover, .sign-up-btn:hover {
     color: #fff;
     background-color: #535a3b;
 }
@@ -86,7 +86,7 @@ main .cart {
     margin-right: 220px;
 }
 
-.login-box {
+.register-box {
     background: #fff;
     padding: 2em;
     border-radius: 12px;
@@ -94,15 +94,15 @@ main .cart {
     text-align: left;
     max-width: 300px;
     width: 100%;
-    height: 340px;
+    height: 400px;
 }
 
-.login-box h2 {
+.register-box h2 {
     margin-top: 0;
     font-size: 26px;
 }
 
-.login-box p {
+.register-box p {
     margin: 1.3rem 0;
     color: #666;
     font-size: 15px;
@@ -126,27 +126,18 @@ input[type="text"]::placeholder, input[type="password"]::placeholder {
     font-size: 15px;
 }
 
-.login-box .msg{
+.register-box .msg {
     margin-top: 0px;
     font-size: 12px;
 }
 
-.login-box .msg2{
-    /* margin-left: 50px; */
-    color: #ff7f32;
+.register-box .msg2 {
+    color: #666;
     text-decoration: none;
-    text-align: right;
-    /* display: block; */
+    text-align: center;
 }
 
-.trouble-sign-in {
-    text-decoration: none;
-    color: #ff7f32;
-    margin-bottom: 1em;
-    font-size: 13px;
-}
-
-.sign-in-btn {
+.sign-up-btn {
     background-color: #ff7f32;
     color: #fff;
     border: none;
@@ -157,8 +148,8 @@ input[type="text"]::placeholder, input[type="password"]::placeholder {
     max-width: 285px;
 }
 
-.sign-in-btn:hover{
-    background-color:chocolate;
+.sign-up-btn:hover {
+    background-color: chocolate;
 }
 
 .or {
@@ -191,7 +182,6 @@ input[type="text"]::placeholder, input[type="password"]::placeholder {
 
 .social-btn i {
     margin-right: 0.5em;
-    /* font-size: 1.5rem; */
 }
 
 .no-account {
