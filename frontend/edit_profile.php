@@ -1,34 +1,42 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: login.html");
+include 'db.php';
+if (!isset($_SESSION['email'])) {
+    header("Location: cust_login.html");
     exit;
 }
 
 // Update the session variables when the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['name'] = $_POST['name'];
-    $_SESSION['dob'] = $_POST['dob'];
-    // $_SESSION['location'] = $_POST['location'];
-    $_SESSION['alt_phone'] = $_POST['alt_phone'];
-    $_SESSION['hint_name'] = $_POST['hint_name'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['address_line1'] = $_POST['address_line1'];
+    $_SESSION['address_line2'] = $_POST['address_line2'];
+    $_SESSION['city'] = $_POST['city'];
+    $_SESSION['state'] = $_POST['state'];
+    $_SESSION['postal_code'] = $_POST['postal_code'];
+    $_SESSION['country'] = $_POST['country'];
 
-    // Update the database with new information
-    // Assuming you have a database connection established as $conn
-    // $stmt = $conn->prepare("UPDATE users SET dob = ?, location = ?, alt_phone = ?, hint_name = ? WHERE email = ?");
-    // $stmt->bind_param("sssss", $_POST['dob'], $_POST['location'], $_POST['alt_phone'], $_POST['hint_name'], $_SESSION['email']);
-    // $stmt->execute();
-    // $stmt->close();
+    $stmt = $conn->prepare("UPDATE customer_management SET name = ?, phone = ?, address_line1 = ?, address_line2 = ?, city = ?, state = ?, postal_code = ?, country = ? WHERE email = ?");
+    $stmt->bind_param("sssssssss", $_POST['name'], $_POST['phone'], $_POST['address_line1'], $_POST['address_line2'], $_POST['city'], $_POST['state'], $_POST['postal_code'], $_POST['country'], $_POST['email']);
+    $stmt->execute();
+    $stmt->close();
 
     header("Location: profile.php");
     exit;
 }
 
 $name = isset($_SESSION['name']) && $_SESSION['name'] !== "- not added -" ? $_SESSION['name'] : "";
-$dob = isset($_SESSION['dob']) && $_SESSION['dob'] !== "- not added -" ? $_SESSION['dob'] : "";
-// $location = isset($_SESSION['location']) && $_SESSION['location'] !== "- not added -" ? $_SESSION['location'] : "";
-$alt_phone = isset($_SESSION['alt_phone']) && $_SESSION['alt_phone'] !== "- not added -" ? $_SESSION['alt_phone'] : "";
-$hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not added -" ? $_SESSION['hint_name'] : "";
+$phone = isset($_SESSION['phone']) && $_SESSION['phone'] !== "- not added -" ? $_SESSION['phone'] : "";
+$email = isset($_SESSION['email']) && $_SESSION['email'] !== "- not added -" ? $_SESSION['email'] : "";
+$address_line1 = isset($_SESSION['address_line1']) && $_SESSION['address_line1'] !== "- not added -" ? $_SESSION['address_line1'] : "";
+$address_line2 = isset($_SESSION['address_line2']) && $_SESSION['address_line2'] !== "- not added -" ? $_SESSION['address_line2'] : "";
+$city = isset($_SESSION['city']) && $_SESSION['city'] !== "- not added -" ? $_SESSION['city'] : "";
+$state = isset($_SESSION['state']) && $_SESSION['state'] !== "- not added -" ? $_SESSION['state'] : "";
+$postal_code = isset($_SESSION['postal_code']) && $_SESSION['postal_code'] !== "- not added -" ? $_SESSION['postal_code'] : "";
+$country = isset($_SESSION['country']) && $_SESSION['country'] !== "- not added -" ? $_SESSION['country'] : "";
+
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +45,7 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,14 +54,31 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
             background-color: #f4f4f4;
         }
         header {
-            background-color: #333;
+            background-color: #535a3b;
             color: #fff;
             padding: 10px;
             text-align: center;
+            font-family: 'Domine', serif;
+            position: relative;
         }
+        header a {
+            text-decoration: none;
+            color: #fff;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+        }
+        header a i {
+            margin-right: 5px;
+        }
+
         .sidebar {
+            font-family: 'Domine', serif;
             width: 250px;
-            background-color: #fff;
+            background-color: #cedcc3;
             position: fixed;
             height: 100%;
             overflow: auto;
@@ -61,38 +87,55 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
         .sidebar a {
             display: block;
             color: black;
-            padding: 16px;
+            padding: 20px;
             text-decoration: none;
         }
         .sidebar a:hover {
             background-color: #ddd;
         }
         .main {
-            margin-left: 260px; /* Same as the width of the sidebar */
+            margin-left: 260px; 
             padding: 16px;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
+            padding: 40px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+        h2 {
+            text-align: left;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        hr {
+            margin: 10px 0 20px;
+            border: 0;
+            border-top: 1px solid #ccc;
         }
         .profile-info {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
         }
         .profile-info label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
+            color: #666;
         }
         .profile-info input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 0.75em;
+            height: 22px;
+            border: 1px solid #ddd;
+            width: calc(97.7% - 5px); /* Adjust width to fit two fields in a row with a gap */
+            margin-bottom: 11.5px;
         }
+        
         .save-btn {
             display: inline-block;
             padding: 10px 20px;
@@ -101,8 +144,10 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
             color: #fff;
             text-align: center;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+            width: 420px;
+            font-size: 15.4px;
+            text-decoration: none;
         }
         .save-btn:hover {
             background-color: #45a049;
@@ -115,13 +160,32 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
             color: #fff;
             text-align: center;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+            width: 420px;
             text-decoration: none;
         }
         .cancel-btn:hover {
             background-color: #d32f2f;
         }
+        .logout-btn {
+            font-size: 20px;
+            display: block;
+            width: 70%;
+            padding: 15px;
+            margin-left: 18px;
+            background-color: #fff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .sidebar .logout-btn:hover {
+            background-color: #d32f2f;
+            color: #fff;
+        }  
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -143,14 +207,13 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
 </head>
 <body>
     <header>
-        <h1>Edit Profile</h1>
+        <a href="index.php"><i class='bx bx-chevron-left'></i>Home</a>
+        <h1>USER PROFILE</h1>
     </header>
     <div class="sidebar">
         <a href="orders.php">My Orders</a>
         <a href="profile.php">Profile Information</a>
-        <a href="addresses.php">Manage Addresses</a>
         <a href="pan_info.php">PAN Card Information</a>
-        <a href="payments.php">Gift Cards</a>
         <a href="payments.php">Saved UPI</a>
         <a href="payments.php">Saved Cards</a>
         <a href="coupons.php">My Coupons</a>
@@ -159,25 +222,44 @@ $hint_name = isset($_SESSION['hint_name']) && $_SESSION['hint_name'] !== "- not 
     </div>
     <div class="main">
         <div class="container">
+            <h2>Edit Profile</h2><hr>
             <form method="post" action="">
                 <div class="profile-info">
-                    <label>Name:</label>
+                    <label>Name</label>
                     <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>" placeholder="- not added -">
                 </div>
                 <div class="profile-info">
-                    <label>Date of Birth:</label>
-                    <input type="date" name="dob" value="<?php echo htmlspecialchars($dob); ?>" placeholder="- not added -">
+                    <label>Number</label>
+                    <input type="text" name="phone" value="<?php echo htmlspecialchars($phone); ?>" placeholder="- not added -">
+
+                    <label>Email</label>
+                    <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="- not added -">
                 </div>
                 <div class="profile-info">
-                    <label>Alternate Mobile:</label>
-                    <input type="text" name="alt_phone" value="<?php echo htmlspecialchars($alt_phone); ?>" placeholder="- not added -">
+                    <label>Address Line 1</label>
+                    <input type="text" name="address_line1" value="<?php echo htmlspecialchars($address_line1); ?>" placeholder="- not added -">
+
+                    <label>Address Line 2</label>
+                    <input type="text" name="address_line2" value="<?php echo htmlspecialchars($address_line2); ?>" placeholder="- not added -">
                 </div>
                 <div class="profile-info">
-                    <label>Hint Name:</label>
-                    <input type="text" name="hint_name" value="<?php echo htmlspecialchars($hint_name); ?>" placeholder="- not added -">
+                    <label>City</label>
+                    <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" placeholder="- not added -">
+
+                    <label>State</label>
+                    <input type="text" name="state" value="<?php echo htmlspecialchars($state); ?>" placeholder="- not added -">
+                </div>
+                <div class="profile-info">
+                    <label>Postal Code</label>
+                    <input type="text" name="postal_code" value="<?php echo htmlspecialchars($postal_code); ?>" placeholder="- not added -">
+
+                    <label>Country</label>
+                    <input type="text" name="country" value="<?php echo htmlspecialchars($country); ?>" placeholder="- not added -">
                 </div>
                 <button type="submit" class="save-btn">Save Changes</button>
                 <a href="profile.php" class="cancel-btn">Cancel</a>
+                </div>
+                
             </form>
         </div>
     </div>

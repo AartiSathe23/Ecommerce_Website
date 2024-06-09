@@ -15,9 +15,8 @@ header {
     width: 97.36%;
     position: sticky;
     top: 0;
-    z-index: 1000; /* Ensure the header is on top */
+    z-index: 1000; 
 }
-
 /* .logo-container {
     margin-right: 20px;
 } */

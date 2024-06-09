@@ -1,12 +1,10 @@
-<!-- http://localhost/Acmegrade/Ecommerce_Website/frontend/index.php -->
-
 <?php
 // Start the session
 session_start();
 
 // Function to check if the user is logged in
 function is_logged_in() {
-    return isset($_SESSION['user_id']);
+    return isset($_SESSION['cust_id']);
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +37,7 @@ function is_logged_in() {
             <i class='bx bx-search search-icon'></i>
         </div>
         <div class="icons">
-            <i class='bx bx-user-circle' id="user"></i>
+            <i class='bx bx-user-circle' id="cust_id"></i>
             <i class='bx bx-cart' id="cart"></i>
         </div>
     </header>
@@ -124,15 +122,15 @@ function is_logged_in() {
         </div>
     </footer>
     <script>
-        document.getElementById("user").addEventListener("click", function() {
+        document.getElementById("cust_id").addEventListener("click", function() {
             <?php if (is_logged_in()): ?>
                 window.location.href = "profile.php";
             <?php else: ?>
-                window.location.href = "login.html";
+                window.location.href = "cust_login.html";
             <?php endif; ?>
         });
         document.getElementById("cart").addEventListener("click", function() {
-            window.location.href = "cart.html";
+            window.location.href = "cart.php";
         });
     </script>
 </body>

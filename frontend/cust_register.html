@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles/cust_register.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <img src="assets/logo1.png" height="100px" alt="">
+        <nav>
+            <a href="index.php" class="contact">Contact Us</a>
+            <button class="request-demo" id="exploreBtn">Explore</button>
+            <button class="admin" id="admin">Become a Seller</button>
+        </nav>
+    </header>
+    <main>
+        <div class="register-box">
+            <h2>Sign Up Here</h2>
+            <p>Please Provide your Details to Continue</p>
+            <form id="registerform" method="POST">
+                <input type="text" id="name" name="name" placeholder="Full Name" required>
+                <div class="info">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
+                </div>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <div class="addr1">
+                    <input type="text" id="address_line1" name="address_line1" placeholder="Address Line 1" required>
+                    <input type="text" id="address_line2" name="address_line2" placeholder="Address Line 2">
+                </div>
+                <div class="addr">
+                    <input type="text" id="city" name="city" placeholder="City" required>
+                    <input type="text" id="state" name="state" placeholder="State" required>
+                </div>
+                <div class="addr2">
+                    <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required>
+                    <input type="text" id="country" name="country" placeholder="Country" required>
+                </div>
+                <p class="msg">By proceeding, you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+                <button type="submit" id="btn2" class="sign-up-btn">Sign Up</button>
+                <p class="msg2">Already have an Account? <a href="cust_login.html">Login here</a></p>
+            </form>
+        </div>
+        <div id="alertContainer"></div>
+    </main>
+    <script>
+        document.getElementById("exploreBtn").addEventListener("click", function() {
+            window.location.href = "index.php";
+        });
+
+        document.getElementById("admin").addEventListener("click", function() {
+            window.location.href = "admin_login.php";
+        });
+
+        document.getElementById('registerform').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('cust_register.php', {  // Use current PHP script for handling the form submission
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display the response message
+                if (data.success) {
+                    window.location.href = 'cust_login.html';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
