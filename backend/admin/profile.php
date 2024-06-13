@@ -1,15 +1,16 @@
 <?php
 session_start();
 include 'db.php';
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.html"); 
     exit;
 }
 
-$email = $_SESSION['email'];
-$sql = "SELECT * FROM admin_management WHERE email = ?";
+$admin_id = $_SESSION['admin_id'];
+
+$sql = "SELECT * FROM admin_management WHERE admin_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
+$stmt->bind_param("i", $admin_id); // Assuming admin_id is an integer
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
@@ -51,7 +52,7 @@ $_SESSION['country'] = $country;
             background-color: #f4f4f4;
         }
         header {
-            background-color: #535a3b;
+            background-color: #1a1831;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -75,7 +76,7 @@ $_SESSION['country'] = $country;
         .sidebar {
             font-family: 'Domine', serif;
             width: 250px;
-            background-color: #cedcc3;
+            background-color: #3a9679;
             position: fixed;
             height: 100%;
             overflow: auto;
@@ -103,7 +104,7 @@ $_SESSION['country'] = $country;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 1000px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
         h2 {
             text-align: left;

@@ -1,11 +1,5 @@
 <?php
-// Start the session
-session_start();
-
-// Function to check if the user is logged in
-function is_logged_in() {
-    return isset($_SESSION['cust_id']);
-}
+include 'header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,123 +9,164 @@ function is_logged_in() {
     <title>E-commerce Website</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="assets/logo1.png" alt="Logo" class="logo">
+<main>
+    <div class="slider">
+        <div class="slides">
+            <img class="slide" src="assets/electro.jpg" alt="Slide 1">
+            <img class="slide" src="assets/banner1.jpg" alt="Slide 2">
+            <img class="slide" src="assets/banner4.jpg" alt="Slide 3">
+            <img class="slide" src="assets/banner3.jpg" alt="Slide 4">
+            <img class="slide" src="assets/banner2.jpg" alt="Slide 5">
         </div>
-        <div class="nav-container">
-            <h1>Welcome to Essentia</h1>
-            <nav>
-                <a href="index.php" class="home">Home</a>
-                <a href="men.php" class="men">Men</a>
-                <a href="women.php" class="women">Women</a>
-                <a href="electronic.php" class="electronics">Electronics</a>
-                <a href="furniture.php" class="home">Home & Furniture</a>
-                <a href="book.php" class="books">Books</a>
-            </nav>
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
         </div>
-        <div class="search-container">
-            <input type="text" placeholder="Search" class="search-bar">
-            <i class='bx bx-search search-icon'></i>
-        </div>
-        <div class="icons">
-            <i class='bx bx-user-circle' id="cust_id"></i>
-            <i class='bx bx-cart' id="cart"></i>
-        </div>
-    </header>
-    <main>
-        <div class="main-content">
-            <div class="banner">
+    </div>
+    <div class="main-content">
+        <div class="banner">
+            <div class="banner-text">
                 <p>Picked Every Item with Care,<br><span>YOU MUST TRY.</span></p>
-                <img src="assets/model.png" alt="">
             </div>
-            <div class="offers">
-                <div class="b1">
-                    <p><span>SUMMER COLLECTION</span><br>Go and Check out</p>
-                    <img src="assets/b1.png" alt="">
+            <img src="assets/model.png" alt="Model Image">
+        </div>
+        <div class="offers">
+            <div class="b1">
+                <p><span>SUMMER COLLECTION</span><br>Go and Check out</p>
+                <img src="assets/b1.png" alt="Summer Collection">
+            </div>
+            <div class="b2">
+                <p><span>40% OFF</span><br>Men's Collection</p>
+                <img src="assets/b2.png" alt="Men's Collection">
+            </div>
+            <div class="b3">
+                <p><span>60% OFF</span><br>Women's Collection</p>
+                <img src="assets/b3.png" alt="Women's Collection">
+            </div>
+            <div class="b4">
+                <img src="assets/b4.png" alt="Beauty Collection">
+                <p><span>BEAUTY COLLECTION</span><br>Get 20% OFF</p>
+            </div>
+        </div>
+    </div>
+    <video class="responsive-video" src="assets/video.mp4" autoplay loop muted></video>
+
+    <img src="assets/model.jpeg" alt="" width="376.3">
+    <img src="assets/model2.jpeg" alt="" width="376.3">
+    <img src="assets/model6.jpeg" alt="" width="376.3">
+    <img src="assets/model4.jpeg" alt="" width="376.3">
+    <!-- <img src="assets/model1.jpeg" height="668px" alt=""> -->
+
+    <div class="main-content2">
+        <h2>HOME DECOR</h2>
+        <div class="decor2">
+            <div class="decor-item">
+                <img src="assets/room.jpg" width="501.4" alt="Room 1">
+                <div class="overlay-content">
+                    <h3>SPACE SAVING FURNITURE</h3>
+                    <box-icon name='chevron-right-circle' id="furniture" color="white" size="45px"></box-icon>
                 </div>
-                <div class="b2">
-                    <p><span>40% OFF</span><br>Men's Collection</p>
-                    <img src="assets/b2.png" alt="">
+            </div>
+            <div class="decor-item">
+                <img src="assets/room1.jpg" width="501.4" alt="Room 2">
+                <div class="overlay-content">
+                    <h3>GARDENING</h3>
+                    <box-icon name='chevron-right-circle' id="garden" color="white" size="45px"></box-icon>
                 </div>
-                <div class="b3">
-                    <p><span>60% OFF</span><br>Women's Collection</p>
-                    <img src="assets/b3.png" alt="">
-                </div>
-                <div class="b4">
-                    <img src="assets/b4.png" alt="">
-                    <p><span>BEAUTY COLLECTION</span><br>Get 20% OFF</p>
+            </div>
+            <div class="decor-item">
+                <img src="assets/room4.jpg" width="501.4" alt="Room 3">
+                <div class="overlay-content">
+                    <h3>HOME BEAUTIFICATION</h3>
+                    <box-icon name='chevron-right-circle' id="homedecor" color="white" size="45px"></box-icon>
                 </div>
             </div>
         </div>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section about">
-                <img src="assets/logo1.png" alt="">
-                <p>Essentia is your go-to place for the latest in fashion, electronics, home decor, and more. <br>We are committed to providing the best quality products and customer service.</p>
-            </div>
-            <div class="footer-section links">
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="men.html">Men</a></li>
-                    <li><a href="women.html">Women</a></li>
-                    <li><a href="electronic.html">Electronics</a></li>
-                    <li><a href="furniture.html">Home & Furniture</a></li>
-                    <li><a href="book.html">Books</a></li>
-                </ul>
-            </div>
-            <div class="footer-section customer-service">
-                <h2>Customer Service</h2>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h2>Contact Us</h2>
-                <p>Email: support@essentia.com</p>
-                <p>Phone: +123 456 7890</p>
-            </div>
-            <div class="footer-section newsletter">
-                <h2>Newsletter</h2>
-                <p>Subscribe to our newsletter to get the latest updates.</p>
-                <form action="#">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
-            <div class="footer-section social-media">
-                <h2>Follow Us</h2>
-                <div class="social-icons">
-                    <a href="#"><i class='bx bxl-facebook'></i></a>
-                    <a href="#"><i class='bx bxl-twitter'></i></a>
-                    <a href="#"><i class='bx bxl-instagram'></i></a>
-                    <a href="#"><i class='bx bxl-linkedin'></i></a>
-                </div>
-            </div>
-        </div><hr>
-        <div class="footer-bottom">
-            <img src="assets/logo1.png" alt="">
-            <p>&copy; 2024 Essentia. All Rights Reserved.</p>
+    </div>
+    <video class="responsive-video" src="assets/video2.mp4" autoplay loop muted></video>
+    
+    <div class="para">
+        <div class="feature">
+            <img src="assets/support.png" alt="24/7 Support">
+            <h3>24/7 Support</h3>
+            <p>We are here to help you at any time.</p>
         </div>
-    </footer>
-    <script>
-        document.getElementById("cust_id").addEventListener("click", function() {
-            <?php if (is_logged_in()): ?>
-                window.location.href = "profile.php";
-            <?php else: ?>
-                window.location.href = "cust_login.html";
-            <?php endif; ?>
+        <div class="feature">
+            <img src="assets/handshake.png" alt="Secure Payment">
+            <h3>Secure Payment</h3>
+            <p>We ensure secure payment with PEV.</p>
+        </div>
+        <div class="feature">
+            <img src="assets/money.png" alt="100% Money Back">
+            <h3>100% Money Back</h3>
+            <p>30 days money back guarantee.</p>
+        </div>
+        <div class="feature">
+            <img src="assets/fast-delivery.png" alt="Fast Delivery">
+            <h3>Fast Delivery</h3>
+            <p>Quick and reliable delivery service.</p>
+        </div>
+    </div>
+
+    <div class="electro">
+        <img src="assets/cam.png" width="700px" alt="">
+        <div class="electro-content">
+            <h3>CAPTURE YOUR MEMORIES</h3>
+            <!-- <p>Get the best deals on cameras and accessories</p> -->
+            <button class="explore-button" id="explore-button">Explore</button>
+        </div>
+    </div>
+
+</main>
+<?php include 'footer.php'; ?>
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("slides")[0];
+        let dots = document.getElementsByClassName("dot");
+        if (slideIndex >= dots.length) {slideIndex = 0} // Reset index if it exceeds the number of dots
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides.style.transform = `translateX(${-100 * slideIndex}%)`; // Adjusted the calculation for the transform
+        dots[slideIndex].className += " active";
+        slideIndex++;
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+
+    function currentSlide(n) {
+        slideIndex = n - 1;
+        showSlides();
+    }
+
+    document.getElementById("furniture").addEventListener("click", function() {
+            window.location.href = "f-furniture.php";
         });
-        document.getElementById("cart").addEventListener("click", function() {
-            window.location.href = "cart.php";
+
+    document.getElementById("garden").addEventListener("click", function() {
+            window.location.href = "f-garden.php";
         });
-    </script>
+
+    document.getElementById("homedecor").addEventListener("click", function() {
+            window.location.href = "f-homedecor.php";
+        });
+
+    document.getElementById("explore-button").addEventListener("click", function() {
+            window.location.href = "e-camera.php"; // Change this to the URL you want to navigate to
+        });
+</script>
+
 </body>
 </html>
+
+
+

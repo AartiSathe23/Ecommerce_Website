@@ -1,12 +1,4 @@
-<?php
-// Start the session
-session_start();
-
-// Function to check if the user is logged in
-function is_logged_in() {
-    return isset($_SESSION['user_id']);
-}
-?>
+<?php include 'header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,108 +6,144 @@ function is_logged_in() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Website</title>
-    <link rel="stylesheet" href="styles/m-bottomwear.css">
+    <link rel="stylesheet" href="styles/f-homedecor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            width: 350px;
+            height: 400px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            cursor: pointer;
+        }
+        .product-image {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-card .product-details {
+            padding: 15px;
+        }
+        .product-card .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-card .product-title {
+            font-size: 1.5em;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .product-card .add-to-cart {
+            font-size: 1.5em;
+            color: #111;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .product-card .product-brand-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-card .product-brand {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .product-card .product-price {
+            font-size: 1.2em;
+            color: #b12704;
+        }
+
+        .no-products-found {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 1.2em;
+            color: #555;
+            margin-left: 580px;
+            margin-top: 50px; 
+            width: 440px;
+        }
+
+        /* .no-products-found::before,
+        .no-products-found::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px auto; 
+        } */
+    </style>
+    <script>
+        function redirectToProductPage(productId) {
+            window.location.href = 'product-page.php?id=' + productId;
+        }
+
+        function addToCart(productId) {
+            window.location.href = 'cart-page.php?id=' + productId;
+        }
+    </script>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="assets/logo1.png" alt="Logo" class="logo">
+
+<main>
+    <div class="main-content">
+        <div class="banner">
+            <p>BOTTOMWEAR</p>
         </div>
-        <div class="nav-container">
-            <h1>Welcome to Essentia</h1>
-            <nav>
-                <a href="index.php" class="home">Home</a>
-                <a href="men.php" class="men">Men</a>
-                <a href="women.php" class="women">Women</a>
-                <a href="electronic.php" class="electronics">Electronics</a>
-                <a href="furniture.php" class="home">Home & Furniture</a>
-                <a href="book.php" class="books">Books</a>
-                <!-- <a href="" class="sports">Sports & Fitness</a> -->
-            </nav>
+        <div class="product-grid">
+            <?php
+            include 'db.php'; // This is your database connection script
+
+            $products_query = "
+                SELECT p.pro_id, p.pro_name, p.pro_img, p.brand, p.sell_price, sc.col_name
+                FROM admin_products p
+                JOIN admin_sub_collections sc ON p.pro_sub_col = sc.col_id
+                WHERE sc.col_name = 'Men Bottomwear'
+            ";
+            $products_result = $conn->query($products_query);
+
+            if ($products_result->num_rows > 0) {
+                while ($product = $products_result->fetch_assoc()) {
+                    echo "<div class='product-card' onclick='redirectToProductPage(" . $product['pro_id'] . ")'>";
+                    echo "<div class='product-image'><img src='assets/" . $product['pro_img'] . "' alt='Product Image'></div>";
+                    echo "<div class='product-details'>";
+                    echo "<div class='product-header'>";
+                    echo "<h2 class='product-title'>" . $product['pro_name'] . "</h2>";
+                    echo "<a class='add-to-cart' onclick='event.stopPropagation(); addToCart(" . $product['pro_id'] . ")'><i class='bx bxs-cart-add'></i></a>";
+                    echo "</div>";
+                    echo "<div class='product-brand-price'>";
+                    echo "<p class='product-brand'>" . $product['brand'] . "</p>";
+                    echo "<p class='product-price'>$" . $product['sell_price'] . "</p>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p class='no-products-found'>No products found in this collection.</p>";
+            }
+
+            $conn->close();
+            ?>
         </div>
-        <div class="search-container">
-            <input type="text" placeholder="Search" class="search-bar">
-            <i class='bx bx-search search-icon'></i>
-        </div>
-        <div class="icons">
-            <i class='bx bx-user-circle' id="user"></i>
-            <i class='bx bx-cart' id="cart"></i>
-        </div>
-    </header>
-    <main>
-        <div class="main-content">
-            <div class="banner">
-                <p>BOTTOMWEAR</p>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <!-- <img src="assets/logo1.png" alt=""> -->
-            <div class="footer-section about">
-                <img src="assets/logo1.png" alt="">
-                <p>Essentia is your go-to place for the latest in fashion, electronics, home decor, and more. <br>We are committed to providing the best quality products and customer service.</p>
-            </div>
-            <div class="footer-section links">
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="men.php">Men</a></li>
-                    <li><a href="women.php">Women</a></li>
-                    <li><a href="electronic.php">Electronics</a></li>
-                    <li><a href="furniture.php">Home & Furniture</a></li>
-                    <li><a href="book.php">Books</a></li>
-                </ul>
-            </div>
-            <div class="footer-section customer-service">
-                <h2>Customer Service</h2>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h2>Contact Us</h2>
-                <p>Email: support@essentia.com</p>
-                <p>Phone: +123 456 7890</p>
-            </div>
-            <div class="footer-section newsletter">
-                <h2>Newsletter</h2>
-                <p>Subscribe to our newsletter to get the latest updates.</p>
-                <form action="#">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
-            <div class="footer-section social-media">
-                <h2>Follow Us</h2>
-                <div class="social-icons">
-                    <a href="#"><i class='bx bxl-facebook'></i></a>
-                    <a href="#"><i class='bx bxl-twitter'></i></a>
-                    <a href="#"><i class='bx bxl-instagram'></i></a>
-                    <a href="#"><i class='bx bxl-linkedin'></i></a>
-                </div>
-            </div>
-        </div><hr>
-        <div class="footer-bottom">
-            <img src="assets/logo1.png" alt="">
-            <p>&copy; 2024 Essentia. All Rights Reserved.</p>
-        </div>
-    </footer>
-    <script>
-        document.getElementById("user").addEventListener("click", function() {
-            <?php if (is_logged_in()): ?>
-                window.location.href = "profile.php";
-            <?php else: ?>
-                window.location.href = "login.html";
-            <?php endif; ?>
-        });
-        document.getElementById("cart").addEventListener("click", function() {
-            window.location.href = "cart.html";
-        });
-    </script>
+    </div>
+</main>
+<?php include 'footer.php'; ?>
+
 </body>
 </html>

@@ -149,7 +149,7 @@ $_SESSION['hint_name'] = isset($_SESSION['hint_name']) ? $_SESSION['hint_name'] 
         <h1>USER PROFILE</h1>
     </header>
     <div class="sidebar">
-        <a href="orders.php">My Orders</a>
+        <a href="order-page.php">My Orders</a>
         <a href="profile.php">Profile Information</a>
         <a href="pan_info.php">PAN Card Information</a>
         <a href="payments.php">Saved UPI</a>

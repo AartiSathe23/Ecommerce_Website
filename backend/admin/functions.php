@@ -1,7 +1,9 @@
 <?php
 include 'db.php';
+session_start();
 if(isset($_POST['add-collections'])){
     $col_id = mt_rand(11111,99999);
+    $admin_id = $_SESSION['admin_id'];
     $col_name = $_POST['col_name'];
     $meta_title = $_POST['meta_title'];
     $meta_desc = $_POST['meta_desc'];
@@ -11,8 +13,8 @@ if(isset($_POST['add-collections'])){
     $added_on = date('M d, Y');
     $slug_url = SlugUrl($col_name);
 
-    $sql = "INSERT INTO admin_collections (col_id, col_name, meta_title,
-    meta_desc, meta_key, h1_tag, input_status, slug_url, added_on)VALUES('$col_id', '$col_name', '$meta_title', '$meta_desc', '$meta_key', '$h1_tag', 1, '$slug_url',  '$added_on')";
+    $sql = "INSERT INTO admin_collections (col_id, admin_id, col_name, meta_title,
+    meta_desc, meta_key, h1_tag, input_status, slug_url, added_on)VALUES('$col_id', '$admin_id', '$col_name', '$meta_title', '$meta_desc', '$meta_key', '$h1_tag', 1, '$slug_url',  '$added_on')";
 
     $check = mysqli_query($conn,$sql);
       if($check){
@@ -27,6 +29,7 @@ if(isset($_POST['add-collections'])){
 
 if(isset($_POST['add-sub-collections'])){
     $col_id = mt_rand(11111,99999);
+    $admin_id = $_SESSION['admin_id'];
     $parent_id = $_POST['parent_id'];
     $col_name = $_POST['col_name'];
     $meta_title = $_POST['meta_title'];
@@ -36,9 +39,9 @@ if(isset($_POST['add-sub-collections'])){
     $added_on = date('M d, Y');
     $slug_url = SlugUrl($col_name);
 
-    $sql = "INSERT INTO admin_sub_collections (col_id, parent_id, col_name, meta_title, meta_desc, meta_key, h1_tag, input_status, slug_url, added_on) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)";
+    $sql = "INSERT INTO admin_sub_collections (col_id, admin_id, parent_id, col_name, meta_title, meta_desc, meta_key, h1_tag, input_status, slug_url, added_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssss", $col_id, $parent_id, $col_name, $meta_title, $meta_desc, $meta_key, $h1_tag, $slug_url, $added_on);
+    $stmt->bind_param("ssssssssss", $col_id, $admin_id, $parent_id, $col_name, $meta_title, $meta_desc, $meta_key, $h1_tag, $slug_url, $added_on);
 
     if ($stmt->execute()) {
         echo "<script type='text/javascript'>
@@ -57,6 +60,7 @@ if(isset($_POST['add-sub-collections'])){
 
 if(isset($_POST['add-products'])){
     $pro_id = mt_rand(11111,99999);
+    $admin_id = $_SESSION['admin_id'];
     $pro_name = $_POST['pro_name'];
     $brand = $_POST['brand'];
     $pro_desc = $_POST['pro_desc'];
@@ -80,12 +84,12 @@ if(isset($_POST['add-products'])){
     // $uploadOk = 1;
     move_uploaded_file($file_tmp,$target_file);
 
-    $sql = "INSERT INTO admin_products (pro_id, pro_name, brand, pro_desc, pro_col, pro_sub_col, sku, pro_img, mrp, sell_price, quantity, meta_title, meta_desc, meta_key, h1_tag, input_status, slug_url, added_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO admin_products (pro_id, admin_id, pro_name, brand, pro_desc, pro_col, pro_sub_col, sku, pro_img, mrp, sell_price, quantity, meta_title, meta_desc, meta_key, h1_tag, input_status, slug_url, added_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssssssssssssssssss", $pro_id, $pro_name, $brand, $pro_desc, $pro_col, $pro_sub_col, $sku, $target_file, $mrp, $sell_price, $quantity, $meta_title, $meta_desc, $meta_key, $h1_tag, $input_status, $slug_url, $added_on);
+        mysqli_stmt_bind_param($stmt, "sssssssssssssssssss", $pro_id, $admin_id, $pro_name, $brand, $pro_desc, $pro_col, $pro_sub_col, $sku, $target_file, $mrp, $sell_price, $quantity, $meta_title, $meta_desc, $meta_key, $h1_tag, $input_status, $slug_url, $added_on);
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
@@ -111,7 +115,8 @@ if(isset($_POST['add-products'])){
 
 function get_Collections() {
     include 'db.php';
-    $sql = "SELECT * FROM admin_collections ORDER BY id DESC";
+    $admin_id = $_SESSION['admin_id']; 
+    $sql = "SELECT * FROM admin_collections WHERE admin_id = '$admin_id' ORDER BY id DESC";
     $check = mysqli_query($conn, $sql);
     $sno = 1;
     $output = ""; // Initialize the output variable as an empty string
@@ -134,7 +139,8 @@ function get_Collections() {
 
 function get_sub_Collections(){
     include 'db.php';
-    $sql = "SELECT * FROM admin_sub_collections ORDER BY id DESC";
+    $admin_id = $_SESSION['admin_id'];
+    $sql = "SELECT * FROM admin_sub_collections WHERE admin_id = '$admin_id' ORDER BY id DESC";
     $check = mysqli_query($conn, $sql);
     $sno = 1;
     $output = "";
@@ -169,7 +175,8 @@ function get_sub_Collections(){
 
 function get_Products(){
     include 'db.php';
-    $sql = "SELECT * FROM admin_products ORDER BY id DESC";
+    $admin_id = $_SESSION['admin_id'];
+    $sql = "SELECT * FROM admin_products WHERE admin_id = '$admin_id' ORDER BY id DESC";
     $check = mysqli_query($conn, $sql);
     $sno = 1;
     $output = ""; // Initialize the output variable as an empty string
@@ -198,7 +205,29 @@ function get_Products(){
 }
 
 
+function get_Customers(){
+    include 'db.php';
+    $sql = "SELECT * FROM customer_management ORDER BY id DESC";
+    $check = mysqli_query($conn, $sql);
+    $sno = 1;
+    $output = ""; // Initialize the output variable as an empty string
 
+    while ($result = mysqli_fetch_assoc($check)) {
+        // Append each row to the output variable with update and delete buttons
+        $output .= "<tr>
+                    <td>".$sno++."</td>
+                    <td>".$result['cust_id']."</td>
+                    <td>".ucwords($result['name'])."</td>
+                    <td>".$result['phone']."</td>
+                    <td>".$result['email']."</td>
+                    <td>".$result['city']."</td>
+                    <td>".$result['state']."</td>
+                    <td>".$result['country']."</td>
+                    <td>".$result['postal_code']."</td>
+                   </tr>";
+    }
+    return $output;
+}
 
 if (isset($_POST['col_id'])) {
     $p_id = $_POST['col_id'];

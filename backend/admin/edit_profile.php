@@ -56,7 +56,7 @@ $country = isset($_SESSION['country']) && $_SESSION['country'] !== "- not added 
             background-color: #f4f4f4;
         }
         header {
-            background-color: #535a3b;
+            background-color: #1a1831;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -80,7 +80,7 @@ $country = isset($_SESSION['country']) && $_SESSION['country'] !== "- not added 
         .sidebar {
             font-family: 'Domine', serif;
             width: 250px;
-            background-color: #cedcc3;
+            background-color: #3a9679;
             position: fixed;
             height: 100%;
             overflow: auto;
@@ -108,7 +108,7 @@ $country = isset($_SESSION['country']) && $_SESSION['country'] !== "- not added 
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 1000px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
         h2 {
             text-align: left;
