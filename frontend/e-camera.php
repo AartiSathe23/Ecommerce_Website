@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Website</title>
-    <link rel="stylesheet" href="styles/f-homedecor.css">
+    <link rel="stylesheet" href="styles/subcol-page.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
     <style>
         .product-grid {
@@ -122,7 +122,7 @@
 
             if ($products_result->num_rows > 0) {
                 while ($product = $products_result->fetch_assoc()) {
-                    $imagePath = '../backend/admin/' . $product['pro_img'];
+                    $imagePath = $product['pro_img'];
                     echo "<div class='product-card' onclick='redirectToProductPage(" . $product['pro_id'] . ")'>";
                     echo "<div class='product-image'><img src='" . $imagePath . "' alt='Product Image'></div>";
                     echo "<div class='product-details'>";
