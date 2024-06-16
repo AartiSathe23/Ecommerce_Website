@@ -1,0 +1,22 @@
+project_root/
+    backend/
+        admin/
+            assets/
+                uploads/
+                    dslr.png
+                    brownlehanga.jpeg
+                    pink_lehanga.png
+                    ...
+            ckeditor
+            css
+            add-collections.php
+            add-products.php 
+            view-products.php
+            ...
+    frontend/
+        assets/
+        scripts/
+        styles/
+        e-camera.php
+        w-ethnics.php
+        ...

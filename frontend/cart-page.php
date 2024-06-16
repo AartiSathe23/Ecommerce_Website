@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 include 'header.php';
 include 'db.php';
 
@@ -41,6 +42,11 @@ foreach ($cartItems as $cartItem) {
 $packagingFee = 10;
 $total = $subtotal + $packagingFee;
 
+=======
+session_start();
+include 'header.php';
+include 'db.php';
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +57,7 @@ $total = $subtotal + $packagingFee;
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="styles/cart-page.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+<<<<<<< HEAD
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -379,6 +386,8 @@ $total = $subtotal + $packagingFee;
             margin: 0 10px;
         }
 </style>
+=======
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
 </head>
 <body>
 
@@ -386,6 +395,7 @@ $total = $subtotal + $packagingFee;
     <div class="cart-container">
         <div class="cart-items">
             <h2>Your Cart</h2>
+<<<<<<< HEAD
             <?php foreach ($cartItems as $cartItem) : ?>
                 <div class="cart-item">
                     <img src="../backend/admin/<?php echo $cartItem['pro_img']; ?>" alt="Product Image">
@@ -427,6 +437,89 @@ $total = $subtotal + $packagingFee;
             <input type="radio" name="payment" value="COD"> Cash on Delivery<br>
             <button class="checkout-button" onclick="checkout()">Checkout</button>
         </div>
+=======
+            <?php
+            if (!isset($_SESSION['cust_id'])) {
+                echo "<p>You need to login to view your cart.</p>";
+            } else {
+                $cust_id = $_SESSION['cust_id'];
+                $sql = "SELECT cc.pro_id, cc.quantity, p.pro_name, p.pro_img, p.brand, p.sell_price 
+                        FROM customer_cart cc 
+                        JOIN admin_products p ON cc.pro_id = p.pro_id 
+                        WHERE cc.cust_id = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $cust_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $cartItems = [];
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $cartItems[] = $row;
+                    }
+                }
+
+                if (empty($cartItems)) {
+                    echo "<p>Your cart is empty.</p>";
+                } else {
+                    foreach ($cartItems as $cartItem) {
+                        echo "<div class='cart-item'>
+                                <img src='../backend/admin/{$cartItem['pro_img']}' alt='Product Image'>
+                                <div class='cart-item-info'>
+                                    <h4>{$cartItem['pro_name']}</h4>
+                                    <p>{$cartItem['brand']}</p>
+                                    <p>\${$cartItem['sell_price']}</p>
+                                </div>
+                                <div class='cart-item-actions'>
+                                    <button class='view-button' onclick='viewProduct({$cartItem['pro_id']})'>View</button>
+                                    <button class='remove-button' onclick='deleteProduct({$cartItem['pro_id']})'>Remove</button>
+                                </div>
+                            </div>";
+                    }
+                }
+            }
+            ?>
+        </div>
+        <?php if (isset($_SESSION['cust_id']) && !empty($cartItems)): ?>
+            <?php
+            // Calculate subtotal
+            $subtotal = 0;
+            foreach ($cartItems as $cartItem) {
+                $subtotal += $cartItem['sell_price'] * $cartItem['quantity'];
+            }
+
+            // Calculate total including packaging fee
+            $packagingFee = 10;
+            $total = $subtotal + $packagingFee;
+            ?>
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-item">
+                    <span>Price(<?php echo count($cartItems); ?>)</span>
+                    <span>$<?php echo $subtotal; ?></span>
+                </div>
+                <div class="summary-item">
+                    <span>Delivery Charges</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-item">
+                    <span>Packaging Fee</span>
+                    <span>$<?php echo $packagingFee; ?></span>
+                </div>
+                <hr>
+                <div class="summary-item">
+                    <span>Total</span>
+                    <span>$<?php echo $total; ?></span>
+                </div>
+                <h4>Payment Options</h4>
+                <input type="radio" name="payment" value="upi" checked> UPI<br>
+                <input type="radio" name="payment" value="wallet"> Wallet<br>
+                <input type="radio" name="payment" value="card"> Debit Card/Credit Card/ATM Card<br>
+                <input type="radio" name="payment" value="COD"> Cash on Delivery<br>
+                <button class="checkout-button" onclick="checkout()">Checkout</button>
+            </div>
+        <?php endif; ?>
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
     </div>
 </main>
 
@@ -447,7 +540,10 @@ $total = $subtotal + $packagingFee;
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response.success) {
+<<<<<<< HEAD
                     // Product removed successfully, update UI or reload page
+=======
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
                     location.reload();
                 } else {
                     alert('Failed to remove product from cart: ' + response.message);
@@ -467,7 +563,10 @@ $total = $subtotal + $packagingFee;
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response.success) {
+<<<<<<< HEAD
                     // Order placed successfully, redirect or show success message
+=======
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
                     window.location.href = 'order-page.php';
                 } else {
                     alert('Failed to checkout: ' + response.message);
@@ -475,15 +574,23 @@ $total = $subtotal + $packagingFee;
             }
         };
 
+<<<<<<< HEAD
         // Prepare cart items to send as JSON
         var cartItemsJson = JSON.stringify(<?php echo json_encode($cartItems); ?>);
 
         // Send data to server
+=======
+        var cartItemsJson = JSON.stringify(<?php echo json_encode($cartItems); ?>);
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
         xhr.send("cartItems=" + cartItemsJson + "&payment=" + paymentMethod + "&custId=" + <?php echo $cust_id; ?>);
     }
 </script>
 
+<<<<<<< HEAD
 <?php include 'footer.php'; // Include your footer file ?>
+=======
+<?php include 'footer.php'; ?>
+>>>>>>> e88ec7c10ff193ede0c7af7c5a47a349abf12464
 
 </body>
 </html>
