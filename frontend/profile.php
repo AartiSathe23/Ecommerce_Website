@@ -36,7 +36,10 @@ $_SESSION['hint_name'] = isset($_SESSION['hint_name']) ? $_SESSION['hint_name'] 
             padding: 10px;
             text-align: center;
             font-family: 'Domine', serif;
-            position: relative;
+            position: fixed;
+            /* top: 0; */
+            width: 100%;
+            z-index: 1000;
         }
         header a {
             text-decoration: none;
@@ -57,9 +60,11 @@ $_SESSION['hint_name'] = isset($_SESSION['hint_name']) ? $_SESSION['hint_name'] 
             width: 250px;
             background-color: #cedcc3;
             position: fixed;
-            height: 100%;
+            top: 80px; /* Adding this to make sidebar start below the header */
+            height: calc(100% - 60px); /* Adjusting the height accordingly */
             overflow: auto;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding-top: 20px; 
         }
         .sidebar a {
             display: block;
@@ -83,7 +88,7 @@ $_SESSION['hint_name'] = isset($_SESSION['hint_name']) ? $_SESSION['hint_name'] 
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 1000px;
-            margin-top: 40px;
+            margin-top: 170px;
         }
         h2 {
             text-align: left;

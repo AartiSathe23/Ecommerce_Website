@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {  // Check if the form is submitted
                   VALUES ($order_id, $cust_id, $product_id, '{$customer['name']}', '{$customer['phone']}', '$full_address', '$payment_method', '$status', $total_price)";
     
     if ($conn->query($sql_order) === TRUE) {
-        echo "<script>alert('Order placed successfully!'); window.location.href='profile.php';</script>";
+        echo "<script>alert('Order placed successfully!'); window.location.href='order-page.php';</script>";
     } else {
         echo "Error: " . $sql_order . "<br>" . $conn->error;
     }
@@ -69,6 +69,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Processing</title>
     <link rel="stylesheet" href="styles/order-process-page.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

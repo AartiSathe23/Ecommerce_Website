@@ -64,7 +64,7 @@
             window.location.href = "wishlist-page.php";
         });
         document.getElementById("cart").addEventListener("click", function() {
-            window.location.href = "cart.php";
+            window.location.href = "cart-page.php";
         });
     </script>
 </body>

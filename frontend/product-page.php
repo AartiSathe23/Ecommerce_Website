@@ -1,10 +1,12 @@
-<?php include 'header.php'; ?>
-<?php include 'db.php';  ?>
-
 <?php
-$product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+include 'header.php';
+include 'db.php';
 
-$sql = "SELECT pro_name, pro_img, brand, sell_price, pro_desc FROM admin_products WHERE pro_id = $product_id";
+
+$product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+
+$sql = "SELECT pro_name, pro_img, pro_desc, brand, sell_price FROM admin_products WHERE pro_id = $product_id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -16,6 +18,28 @@ if ($result->num_rows > 0) {
 
 $is_logged_in = isset($_SESSION['cust_id']) ? true : false;
 $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
+
+if ($is_logged_in) {
+    $pro_name = $product['pro_name'];
+    $brand = $product['brand'];
+    $sell_price = $product['sell_price'];
+    $pro_img = $product['pro_img'];
+
+    $stmt = $conn->prepare("INSERT INTO customer_cart (cust_id, pro_id, pro_name, brand, sell_price, quantity, pro_img) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissdis", $cust_id, $product_id, $pro_name, $brand, $sell_price, $quantity, $pro_img);
+
+    // if ($stmt->execute()) {
+    //     echo "Product added to cart successfully.";
+    // } else {
+    //     echo "Error: " . $stmt->error;
+    // }
+
+    $stmt->close();
+} else {
+    // echo "You must be logged in to add products to the cart.";
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +110,6 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
             font-size: 16px;
             cursor: pointer;
             border: none;
-            /* border-radius: 5px; */
         }
 
         .buttons .buy-now {
@@ -101,11 +124,11 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
 
         .heart-icon {
             position: absolute;
-            top: 10px; /* Adjust as needed */
-            right: 10px; /* Adjust as needed */
+            top: 10px;
+            right: 10px;
             color: red;
             font-size: 24px;
-            z-index: 2; /* Ensure it's above the image */
+            z-index: 2;
             cursor: pointer;
         }
 
@@ -184,10 +207,23 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
             if (action === 'order') {
                 addToOrder(productId, custId);
             } else if (action === 'cart') {
-                addToCart(productId, custId);
+                var quantity = document.getElementById('quantity').value;
+                addToCart(productId, custId, quantity);
             } else if (action === 'wishlist') {
                 addToWishlist(productId, custId);
             }
+        }
+
+        function addToCart(productId, custId, quantity) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "add_to_cart.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                }
+            };
+            xhr.send("id=" + productId + "&cust_id=" + custId + "&quantity=" + quantity);
         }
 
         function redirectToProductPage(productId) {
@@ -196,10 +232,6 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
 
         function addToOrder(productId, custId) {
             window.location.href = 'order-process-page.php?id=' + productId + '&cust_id=' + custId;
-        }
-
-        function addToCart(productId, custId) {
-            window.location.href = 'cart-page.php?id=' + productId + '&cust_id=' + custId;
         }
 
         function addToWishlist(productId, custId) {
@@ -233,7 +265,7 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
                 <p class="price">$<?php echo $product['sell_price']; ?></p>
                 <div class="buttons">
                     <button class="buy-now" onclick="checkLogin('order', <?php echo $product_id; ?>)">Buy Now</button>
-                    <button class="add-to-cart" onclick="checkLogin('cart', <?php echo $product_id; ?>)">Add to Cart</button>
+                    <button class="add-to-cart" onclick="checkLogin('cart', <?php echo $product_id; ?>, document.getElementById('quantity').value)">Add to Cart</button>
                     <i class='bx bx-heart heart-icon' id="heart-icon-<?php echo $product_id; ?>" onclick="checkLogin('wishlist', <?php echo $product_id; ?>)"></i>
                 </div>
                 <div class="quantity">
@@ -260,10 +292,7 @@ $cust_id = $is_logged_in ? $_SESSION['cust_id'] : 0;
     </div>
 </main>
 <?php include 'footer.php'; ?>
-
 </body>
 </html>
 
-<?php
-$conn->close();
-?>
+
