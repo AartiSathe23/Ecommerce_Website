@@ -64,3 +64,13 @@ The e-commerce website allows users to browse through various products, add them
 2. **Customer Interface**
    - Access the customer interface by navigating to the home page.
    - Register or log in to explore products, add to cart, and place orders.
+     
+## Screenshots
+
+1. **Home Page**
+   
+<img src="frontend/assets/hp1.png" width="400" height="200">
+<img src="frontend/assets/hp2.png" width="400" height="200">
+<img src="frontend/assets/hp3.png" width="400" height="200">
+<img src="frontend/assets/hp4.png" width="400" height="200">
+<img src="frontend/assets/hp5.png" width="400" height="200">
