@@ -77,13 +77,21 @@ The e-commerce website allows users to browse through various products, add them
   
     <img src="frontend/assets/hp5.png" alt="Home Page 5" width="400" height="200">
     
-1. **Collections**  
-
-    <img src="frontend/assets/sb1.png" alt="Home Page 1" width="400" height="200">
-  
-    <img src="frontend/assets/sb2.png" alt="Home Page 2" width="400" height="200">
+2. **Collections**  
   
     <img src="frontend/assets/sb3.png" alt="Home Page 3" width="400" height="200">
   
     <img src="frontend/assets/sb5.png" alt="Home Page 5" width="400" height="200">
+    
+3. **Products & Description**  
+  
+    <img src="frontend/assets/pg.png" alt="Home Page 3" width="400" height="200">
+  
+    <img src="frontend/assets/pd1.png" alt="Home Page 5" width="400" height="200">
+    
+4. **Order & Cart**  
+  
+    <img src="frontend/assets/o2.png" alt="Home Page 3" width="400" height="200">
+  
+    <img src="frontend/assets/cp1.png" alt="Home Page 5" width="400" height="200">
   
