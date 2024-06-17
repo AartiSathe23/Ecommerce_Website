@@ -12,5 +12,25 @@ This repository contains the source code and resources for an e-commerce website
 5. [Installation](#installation)
 6. [Usage](#usage)
 7. [Screenshots](#screenshots)
-8. [Contributing](#contributing)
-9. [License](#license)
+
+## Project Overview
+
+The e-commerce website allows users to browse through various products, add them to their cart, and place orders. Admin users can manage the website's content, including collections, subcollections, and products, as well as view customer information and orders.
+
+## Admin Features
+
+- **Login and Register**: Admin users can create an account and log in to access the admin panel.
+- **Manage Collections and Subcollections**: Admins can add, view, and delete collections and subcollections.
+- **Manage Products**: Admins can add new products, view existing products, and delete them.
+- **View Customers**: Admins can see a list of all registered customers.
+- **View Orders**: Admins can view details of all orders placed by customers.
+
+## Customer Features
+
+- **Login and Register**: Customers can create an account and log in to access their profile and shopping cart.
+- **Explore Products**: Customers can browse through various products and collections.
+- **Add to Cart**: Customers can add products to their cart and view the cart contents.
+- **Remove from Cart**: Customers can remove products from their cart.
+- **Place Orders**: Customers can proceed to checkout and place orders.
+- **View and Edit Profile**: Customers can view and update their profile information, including delivery addresses and payment details.
+- **View Order History**: Customers can view their order history and check the status of each order.
