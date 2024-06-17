@@ -4,6 +4,7 @@ include 'db.php';
 
 $cust_id = isset($_GET['cust_id']) ? intval($_GET['cust_id']) : 0;
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1; // Default to 1 if not set
 
 if (!$cust_id) {
     header('Location: cust_login.html');
@@ -46,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {  // Check if the form is submitted
     $order_id = generateUniqueOrderId($conn);
     $payment_method = $_POST['payment_method'];
     $status = 'Pending'; // default status
-    $total_price = $product['sell_price'];
+    $total_price = $product['sell_price'] * $quantity; // Calculate total price based on quantity
 
     // Insert order details into the database
-    $sql_order = "INSERT INTO customer_orders (order_id, cust_id, pro_id, cust_name, phone, address, payment, status, total_price)
-                  VALUES ($order_id, $cust_id, $product_id, '{$customer['name']}', '{$customer['phone']}', '$full_address', '$payment_method', '$status', $total_price)";
+    $sql_order = "INSERT INTO customer_orders (order_id, cust_id, pro_id, cust_name, phone, address, payment, status, total_price, quantity)
+                  VALUES ($order_id, $cust_id, $product_id, '{$customer['name']}', '{$customer['phone']}', '$full_address', '$payment_method', '$status', $total_price, '$quantity')";
     
     if ($conn->query($sql_order) === TRUE) {
         echo "<script>alert('Order placed successfully!'); window.location.href='order-page.php';</script>";
@@ -70,7 +71,6 @@ $conn->close();
     <title>Order Processing</title>
     <link rel="stylesheet" href="styles/order-process-page.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
-
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -217,8 +217,12 @@ $conn->close();
                     <input type="text" id="pro_name" name="pro_name" value="<?php echo $product['pro_name']; ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="total_price">Total Price</label>
+                    <label for="total_price">Product Price</label>
                     <input type="text" id="total_price" name="total_price" value="$<?php echo $product['sell_price']; ?>" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="text" id="quantity" name="quantity" value="<?php echo $quantity; ?>" disabled>
                 </div>
             </div>
         </div>
@@ -254,10 +258,10 @@ $conn->close();
             </div>
             <div class="order-summary">
                 <h2>Order Summary</h2>
-                <p>Product Price: $<?php echo $product['sell_price']; ?></p>
+                <p>Product Price: $<?php echo $product['sell_price']; ?> x <?php echo $quantity; ?></p>
                 <p>Delivery Charges: Free</p>
                 <hr>
-                <h4>Total: $<?php echo $product['sell_price']; ?></h4>
+                <h4>Total: $<?php echo $product['sell_price'] * $quantity; ?></h4>
             </div>
         </div>
     </div>

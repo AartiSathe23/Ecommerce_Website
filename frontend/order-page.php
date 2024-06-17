@@ -9,7 +9,7 @@ $cust_id = $_SESSION['cust_id']; // Assuming cust_id is stored in the session
 
 include 'db.php';
 
-$sql_orders = "SELECT o.order_id, o.pro_id, o.total_price, o.status, o.payment, order_date, p.pro_name, p.brand, p.pro_img, p.sell_price 
+$sql_orders = "SELECT o.order_id, o.pro_id, o.total_price, o.status, o.payment, o.quantity, o.order_date, p.pro_name, p.brand, p.pro_img, p.sell_price 
                FROM customer_orders o
                JOIN admin_products p ON o.pro_id = p.pro_id
                WHERE o.cust_id = $cust_id";
@@ -208,18 +208,19 @@ $conn->close();
                         echo "<li class='order-item'>
                                 <img src='../backend/admin/{$order['pro_img']}' alt='{$order['pro_name']}'>
                                 <div class='order-details'>
-                                    <p><strong></strong> {$order['pro_name']}</p>
-                                    <p><strong></strong> {$order['brand']}</p>
+                                    <p><strong>Product:</strong> {$order['pro_name']}</p>
+                                    <p><strong>Brand:</strong> {$order['brand']}</p>
+                                    <p><strong>Quantity:</strong> {$order['quantity']}</p>
                                     <div class='order-actions'>
                                         <a href='#' onclick='cancelOrder({$order['order_id']})'><i class='bx bx-trash'></i>Cancel Order</a>
                                         <a href='product-page.php?id={$order['pro_id']}'><i class='bx bx-show'></i> View Product</a>
                                     </div>
                                 </div>
                                 <div class='order-details'>
-                                    <p><strong></strong> {$order['order_date']}</p>
-                                    <p><strong></strong><span id='status-{$order['order_id']}'>{$order['status']}</span></p>
-                                    <p><strong></strong> {$order['payment']}</p>
-                                    <p><strong></strong> \${$order['total_price']}</p>
+                                    <p><strong>Order Date:</strong> {$order['order_date']}</p>
+                                    <p><strong>Status:</strong> <span id='status-{$order['order_id']}'>{$order['status']}</span></p>
+                                    <p><strong>Payment:</strong> {$order['payment']}</p>
+                                    <p><strong>Total Price:</strong> \${$order['total_price']}</p>
                                 </div>
                               </li>";
                     }

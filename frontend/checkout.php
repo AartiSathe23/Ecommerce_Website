@@ -1,47 +1,58 @@
 <?php
-// checkout.php
-
 session_start();
-include 'db.php'; // Include your database connection script
+include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cartItems = json_decode($_POST['cartItems'], true); // Decode JSON string into PHP array
-    $payment = $_POST['payment'];
-    $custId = $_POST['custId'];
+// Decode the cart items and get payment method and customer ID
+$cartItems = json_decode($_POST['cartItems'], true);
+$paymentMethod = $_POST['payment'];
+$custId = $_POST['custId'];
 
-    // Perform validation or security checks if necessary
+// Generate a new order ID (this assumes order_id is unique for each order, not each product)
+$orderId = generateOrderId($conn);
 
-    // Insert into customer_orders table
-    $orderDate = date('Y-m-d H:i:s');
-    $sql = "INSERT INTO customer_orders (cust_id, pro_id, total_price, status, payment, order_date) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+// Calculate total amount for the order
+$totalAmount = calculateTotalAmount($cartItems);
 
-    foreach ($cartItems as $cartItem) {
-        $productId = $cartItem['pro_id'];
-        $totalPrice = $cartItem['sell_price'] * $cartItem['quantity'];
-        $status = 'Pending'; // You can set default status here
-        $stmt->bind_param("iiisss", $custId, $productId, $totalPrice, $status, $payment, $orderDate);
-        $stmt->execute();
+// Insert each cart item into the customer_orders table
+foreach ($cartItems as $item) {
+    $insertOrderSql = "INSERT INTO customer_orders (order_id, cust_id, pro_id, cust_name, phone, address, payment, status, total_price, order_date)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, NOW())";
+    $stmt = $conn->prepare($insertOrderSql);
+    $stmt->bind_param("iiissssd", 
+                      $orderId, 
+                      $custId, 
+                      $item['pro_id'], 
+                      $_SESSION['cust_name'], 
+                      $_SESSION['phone'], 
+                      $_SESSION['address'], 
+                      $paymentMethod, 
+                      $totalAmount);
+    $stmt->execute();
+}
+
+// Clear the cart
+$clearCartSql = "DELETE FROM customer_cart WHERE cust_id = ?";
+$stmt = $conn->prepare($clearCartSql);
+$stmt->bind_param("i", $custId);
+$stmt->execute();
+
+// Respond with success
+$response = ['success' => true];
+echo json_encode($response);
+
+// Function to generate a unique order ID
+function generateOrderId($conn) {
+    $result = $conn->query("SELECT MAX(order_id) AS max_order_id FROM customer_orders");
+    $row = $result->fetch_assoc();
+    return $row['max_order_id'] + 1;
+}
+
+// Function to calculate total amount
+function calculateTotalAmount($cartItems) {
+    $total = 0;
+    foreach ($cartItems as $item) {
+        $total += $item['sell_price'] * $item['quantity'];
     }
-
-    // Clear customer_cart table for this customer
-    $sqlDelete = "DELETE FROM customer_cart WHERE cust_id = ?";
-    $stmtDelete = $conn->prepare($sqlDelete);
-    $stmtDelete->bind_param("i", $custId);
-    $stmtDelete->execute();
-
-    // Check if orders were successfully placed
-    if ($stmt->affected_rows > 0) {
-        echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to place order.']);
-    }
-
-    $stmt->close();
-    $stmtDelete->close();
-    $conn->close();
-} else {
-    // Invalid request method
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    return $total;
 }
 ?>

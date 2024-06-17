@@ -205,7 +205,8 @@ $conn->close();
             }
 
             if (action === 'order') {
-                addToOrder(productId, custId);
+                var quantity = document.getElementById('quantity').value;
+                addToOrder(productId, custId, quantity);
             } else if (action === 'cart') {
                 var quantity = document.getElementById('quantity').value;
                 addToCart(productId, custId, quantity);
@@ -213,6 +214,7 @@ $conn->close();
                 addToWishlist(productId, custId);
             }
         }
+
 
         function addToCart(productId, custId, quantity) {
             var xhr = new XMLHttpRequest();
@@ -230,8 +232,8 @@ $conn->close();
             window.location.href = 'product-page.php?id=' + productId;
         }
 
-        function addToOrder(productId, custId) {
-            window.location.href = 'order-process-page.php?id=' + productId + '&cust_id=' + custId;
+        function addToOrder(productId, custId, quantity) {
+            window.location.href = 'order-process-page.php?id=' + productId + '&cust_id=' + custId + '&quantity=' + quantity;
         }
 
         function addToWishlist(productId, custId) {
@@ -264,7 +266,7 @@ $conn->close();
                 <h2><?php echo $product['pro_name']; ?></h2>
                 <p class="price">$<?php echo $product['sell_price']; ?></p>
                 <div class="buttons">
-                    <button class="buy-now" onclick="checkLogin('order', <?php echo $product_id; ?>)">Buy Now</button>
+                <button class="buy-now" onclick="checkLogin('order', <?php echo $product_id; ?>, document.getElementById('quantity').value)">Buy Now</button>
                     <button class="add-to-cart" onclick="checkLogin('cart', <?php echo $product_id; ?>, document.getElementById('quantity').value)">Add to Cart</button>
                     <i class='bx bx-heart heart-icon' id="heart-icon-<?php echo $product_id; ?>" onclick="checkLogin('wishlist', <?php echo $product_id; ?>)"></i>
                 </div>

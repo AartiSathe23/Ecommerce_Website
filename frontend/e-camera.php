@@ -17,7 +17,7 @@
         }
         .product-card {
             width: 350px;
-            height: 400px;
+            height: 430px;
             border: 1px solid #ccc;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
