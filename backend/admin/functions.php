@@ -229,6 +229,32 @@ function get_Customers(){
     return $output;
 }
 
+function get_Orders(){
+    include 'db.php';
+    $sql = "SELECT * FROM customer_orders ORDER BY id DESC";
+    $check = mysqli_query($conn, $sql);
+    $sno = 1;
+    $output = ""; // Initialize the output variable as an empty string
+
+    while ($result = mysqli_fetch_assoc($check)) {
+        // Append each row to the output variable with update and delete buttons
+        $output .= "<tr>
+                    <td>".$sno++."</td>
+                    <td>".$result['cust_id']."</td>
+                    <td>".$result['pro_id']."</td>
+                    <td>".ucwords($result['cust_name'])."</td>
+                    <td>".$result['phone']."</td>
+                    <td>".$result['address']."</td>
+                    <td>".$result['payment']."</td>
+                    <td>".$result['status']."</td>
+                    <td>".$result['total_price']."</td>
+                    <td>".$result['quantity']."</td>
+                    <td>".$result['order_date']."</td>
+                   </tr>";
+    }
+    return $output;
+}
+
 if (isset($_POST['col_id'])) {
     $p_id = $_POST['col_id'];
     $sql = "SELECT * FROM admin_sub_collections WHERE parent_id = $p_id ORDER BY id DESC";
