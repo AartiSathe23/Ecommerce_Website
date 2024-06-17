@@ -69,7 +69,7 @@ The e-commerce website allows users to browse through various products, add them
 
 1. **Home Page**
    
-<div style="display: flex; justify-content: space-between; justify-content: center;">
+<div style="display: flex; justify-content: center;">
   <div style="margin: 10px;">
     <img src="frontend/assets/hp1.png" alt="Home Page 1" width="400" height="200">
   </div>
@@ -86,3 +86,4 @@ The e-commerce website allows users to browse through various products, add them
     <img src="frontend/assets/hp5.png" alt="Home Page 5" width="400" height="200">
   </div>
 </div>
+
