@@ -50,11 +50,11 @@ The e-commerce website allows users to browse through various products, add them
    git clone https://github.com/your-username/ecommerce-website.git
    cd ecommerce-website
 2. **Setup the Database**
-   Import the database.sql file into PhpMyAdmin to create the necessary tables and data.
+   - Import the database.sql file into PhpMyAdmin to create the necessary tables and data.
 3. **Configure the Database Connection**
-   Update the database connection details in the db.php file.
+   - Update the database connection details in the db.php file.
 4. **Start the Server**
-   Use a local server environment like XAMPP, WAMP, or MAMP to run the project.
+   - Use a local server environment like XAMPP, WAMP, or MAMP to run the project.
 
 ## Usage
 
