@@ -67,13 +67,13 @@ The e-commerce website allows users to browse through various products, add them
      
 ## Screenshots
 
-1. **Home Page**
+1. **Home Page & Profile Page**
    
     <img src="frontend/assets/hp1.png" alt="Home Page 1" width="400" height="200">
   
     <img src="frontend/assets/hp2.png" alt="Home Page 2" width="400" height="200">
   
-    <img src="frontend/assets/hp3.png" alt="Home Page 3" width="400" height="200">
+    <img src="frontend/assets/pp.png" alt="Home Page 3" width="400" height="200">
   
     <img src="frontend/assets/hp5.png" alt="Home Page 5" width="400" height="200">
     
@@ -94,4 +94,18 @@ The e-commerce website allows users to browse through various products, add them
     <img src="frontend/assets/o2.png" alt="Home Page 3" width="400" height="200">
   
     <img src="frontend/assets/cp1.png" alt="Home Page 5" width="400" height="200">
+
+5. **Admin Dashboard**  
   
+    <img src="frontend/assets/ap1.png" alt="Home Page 3" width="400" height="200">
+  
+    <img src="frontend/assets/ap2.png" alt="Home Page 5" width="400" height="200">
+    
+    <img src="frontend/assets/ap3.png" alt="Home Page 5" width="400" height="200">
+    
+    <img src="frontend/assets/ap4.png" alt="Home Page 5" width="400" height="200">
+
+    <img src="frontend/assets/ap5.png" alt="Home Page 5" width="400" height="200">
+    
+    <img src="frontend/assets/ap6.png" alt="Home Page 5" width="400" height="200">
+     
