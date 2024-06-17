@@ -74,7 +74,7 @@ The e-commerce website allows users to browse through various products, add them
   
     <img src="frontend/assets/hp2.png" alt="Home Page 2" width="400" height="200">
   
-    <img src="frontend/assets/hp4.png" alt="Home Page 4" width="400" height="200">
+    <img src="frontend/assets/hp4.png" alt="Home Page 3" width="400" height="200">
   
     <img src="frontend/assets/hp5.png" alt="Home Page 5" width="400" height="200">
   
