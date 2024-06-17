@@ -34,3 +34,33 @@ The e-commerce website allows users to browse through various products, add them
 - **Place Orders**: Customers can proceed to checkout and place orders.
 - **View and Edit Profile**: Customers can view and update their profile information, including delivery addresses and payment details.
 - **View Order History**: Customers can view their order history and check the status of each order.
+
+## Technologies Used
+
+- **HTML**: Structure of the web pages.
+- **CSS**: Styling of the web pages.
+- **JavaScript**: Client-side scripting.
+- **PHP**: Server-side scripting.
+- **PhpMyAdmin**: Database management.
+
+## Installation
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/ecommerce-website.git
+   cd ecommerce-website
+2. **Setup the Database**
+   Import the database.sql file into PhpMyAdmin to create the necessary tables and data.
+3. **Configure the Database Connection**
+   Update the database connection details in the db.php file.
+4. **Start the Server**
+   Use a local server environment like XAMPP, WAMP, or MAMP to run the project.
+
+## Usage
+
+1. **Admin Panel**
+   - Access the admin panel by navigating to admin_login.html.
+   - Use the admin credentials to log in and manage the website content.
+2. **Customer Interface**
+   - Access the customer interface by navigating to the home page.
+   - Register or log in to explore products, add to cart, and place orders.
