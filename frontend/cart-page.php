@@ -273,7 +273,7 @@ include 'db.php';
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-left: 20px;
+        /* margin-left: 20px; */
     }
 
     .cart-item-actions {
