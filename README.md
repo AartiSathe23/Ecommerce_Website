@@ -55,15 +55,6 @@ The e-commerce website allows users to browse through various products, add them
    - Update the database connection details in the db.php file.
 4. **Start the Server**
    - Use a local server environment like XAMPP, WAMP, or MAMP to run the project.
-
-## Usage
-
-1. **Admin Panel**
-   - Access the admin panel by navigating to admin_login.html.
-   - Use the admin credentials to log in and manage the website content.
-2. **Customer Interface**
-   - Access the customer interface by navigating to the home page.
-   - Register or log in to explore products, add to cart, and place orders.
      
 ## Screenshots
 
